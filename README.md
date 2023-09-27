@@ -86,10 +86,52 @@ while txt != "exit":
 
 ```
 
+#### Langchain compatibility 100% ✅
+This example demonstrates how to use HCA to interact with a language model to answer a question based on a context template. Users can modify the query in the prompt_template.format() call to ask different questions and get responses from the language model. This showcases the flexibility of HCA in handling various NLP tasks.
+
+```python
+from HCA import HCA
+from langchain import PromptTemplate
+
+# Initialize the HCA instance with your HuggingFace credentials
+llm = HCA(email="YOUR_EMAIL", password="YOUR_PASSWORD", log=True, model=1)
+
+# Define a template for your prompt
+template = """Answer the question based on the context below. If the
+question cannot be answered using the information provided, answer
+with "I don't know".
+
+Context: Large Language Models (LLMs) are the latest models used in NLP.
+Their superior performance over smaller models has made them incredibly
+useful for developers building NLP-enabled applications. These models
+can be accessed via Hugging Face's `transformers` library, via OpenAI
+using the `openai` library, and via Cohere using the `cohere` library.
+
+Question: {query}
+
+Answer: """
+
+# Create a PromptTemplate for generating prompts
+prompt_template = PromptTemplate(
+    input_variables=["query"],
+    template=template
+)
+
+# Generate a response to a specific question
+response = llm(
+    prompt_template.format(
+        query="Which libraries and model providers offer LLMs?"
+    )
+)
+
+print(response)
+```
+
+
 ## Contributing 🤝
 Passionate about democratizing AI? Join the revolution! Contributions to this project are more than welcome! If you find any issues or have dazzling ideas for improvements, please open an issue or submit a pull request. Together, we'll change the AI landscape! 🌟🌐
 
-##License 📜
+## License 📜
 Let's democratize AI with open-source spirit! 🤗🌈
 
 
